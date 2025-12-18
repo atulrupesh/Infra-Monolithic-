@@ -21,17 +21,15 @@ stages:
       - job: TerraformPlan
         steps:
 
-        # Install Terraform
         - task: TerraformInstaller@1
           inputs:
             terraformVersion: 'latest'
 
         - task: TerraformTask@5
-          displayName: "Terraform Plan"
           inputs:
             provider: 'azurerm'
             command: 'plan'
-            workingDirectory: '$(workdir)'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/Infra-Monolithic-/Envirnment /dev/'
             environmentServiceNameAzureRM: 'newconnection'
 
   - stage: TerraformApply
