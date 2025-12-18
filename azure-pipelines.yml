@@ -29,7 +29,7 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'init'
-            workingDirectory: '$(System.DefaultWorkingDirectory)/Infra-Monolithic-/Envirnment/dev/'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/Envirnment/dev'
             backendServiceArm: 'newconnection'
             backendAzureRmResourceGroupName: 'rg'
             backendAzureRmStorageAccountName: 'gfbn'
@@ -40,21 +40,21 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'plan'
-            workingDirectory: '$(System.DefaultWorkingDirectory)/Infra-Monolithic-/Envirnment/dev/'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/Envirnment/dev'
             environmentServiceNameAzureRM: 'newconnection'
 
-  - stage: TerraformApply
-    displayName: TerraformApply
-    jobs:
-      - job: TerraformApply
-        steps:
+  # - stage: TerraformApply
+  #   displayName: TerraformApply
+  #   jobs:
+  #     - job: TerraformApply
+  #       steps:
 
-        - task: TerraformInstaller@1
-          inputs:
-            terraformVersion: 'latest'
-        - task: TerraformTask@5
-          inputs:
-            provider: 'azurerm'
-            command: 'apply'
-            workingDirectory: '$(workdir)'
-            environmentServiceNameAzureRM: 'newconnection'
+  #       - task: TerraformInstaller@1
+  #         inputs:
+  #           terraformVersion: 'latest'
+  #       - task: TerraformTask@5
+  #         inputs:
+  #           provider: 'azurerm'
+  #           command: 'apply'
+  #           workingDirectory: '$(workdir)'
+  #           environmentServiceNameAzureRM: 'newconnection'
