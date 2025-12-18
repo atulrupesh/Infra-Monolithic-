@@ -29,7 +29,7 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'plan'
-            workingDirectory: '$(System.DefaultWorkingDirectory)/Infra-Monolithic-/Envirnment /dev/'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/Infra-Monolithic-/Envirnment/dev/'
             environmentServiceNameAzureRM: 'newconnection'
 
   - stage: TerraformApply
