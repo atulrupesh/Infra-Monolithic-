@@ -43,18 +43,29 @@ stages:
             workingDirectory: '$(System.DefaultWorkingDirectory)/Envirnment/dev'
             environmentServiceNameAzureRM: 'newconnection'
 
-  # - stage: TerraformApply
-  #   displayName: TerraformApply
-  #   jobs:
-  #     - job: TerraformApply
-  #       steps:
+  - stage: TerraformApply
+    displayName: TerraformApply
+    jobs:
+      - job: TerraformApply
+        steps:
 
-  #       - task: TerraformInstaller@1
-  #         inputs:
-  #           terraformVersion: 'latest'
-  #       - task: TerraformTask@5
-  #         inputs:
-  #           provider: 'azurerm'
-  #           command: 'apply'
-  #           workingDirectory: '$(workdir)'
-  #           environmentServiceNameAzureRM: 'newconnection'
+        - task: TerraformInstaller@1
+          inputs:
+            terraformVersion: 'latest'
+
+        - task: TerraformTask@5
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/Envirnment/dev'
+            backendServiceArm: 'newconnection'
+            backendAzureRmResourceGroupName: 'rg'
+            backendAzureRmStorageAccountName: 'gfbn'
+            backendAzureRmContainerName: 'nrnr'
+            backendAzureRmKey: 'terraform.tfstates'
+        - task: TerraformTask@5
+          inputs:
+            provider: 'azurerm'
+            command: 'apply'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/Envirnment/dev'
+            environmentServiceNameAzureRM: 'newconnection'
