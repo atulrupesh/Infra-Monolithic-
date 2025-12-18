@@ -1,0 +1,9 @@
+variable "rgs" {}
+variable "storages" {}
+variable "public_ip" {}
+variable "vartal_Networks" {}
+variable "key_vault" {}
+variable "vms" {}
+variable "sql-server" {}
+variable "sql_data" {}
+variable "nsg" {}
