@@ -1,0 +1,51 @@
+trigger: none
+
+pool: atul
+
+stages:
+
+  - stage: TerraformInit
+    displayName: "Terraform Init"
+    jobs:
+      - job: TerraformInit
+        steps:
+
+        - task: TerraformInstaller@1
+          inputs:
+            terraformVersion: 'latest'
+
+  - stage: Plan
+    displayName: "Terraform Plan"
+    dependsOn: TerraformInit
+    jobs:
+      - job: TerraformPlan
+        steps:
+
+        # Install Terraform
+        - task: TerraformInstaller@1
+          inputs:
+            terraformVersion: 'latest'
+
+        - task: TerraformTask@5
+          displayName: "Terraform Plan"
+          inputs:
+            provider: 'azurerm'
+            command: 'plan'
+            workingDirectory: '$(workdir)'
+            environmentServiceNameAzureRM: 'newconnection'
+
+  - stage: TerraformApply
+    displayName: TerraformApply
+    jobs:
+      - job: TerraformApply
+        steps:
+
+        - task: TerraformInstaller@1
+          inputs:
+            terraformVersion: 'latest'
+        - task: TerraformTask@5
+          inputs:
+            provider: 'azurerm'
+            command: 'apply'
+            workingDirectory: '$(workdir)'
+            environmentServiceNameAzureRM: 'newconnection'
